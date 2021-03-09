@@ -38,7 +38,7 @@ function Search() {
         <p>Loading...</p>
       ) : (
         
-          <Pokemon/>
+          <Pokemon pokemon = {pokemon}/>
       
       )
     }

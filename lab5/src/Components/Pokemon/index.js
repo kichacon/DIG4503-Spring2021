@@ -6,6 +6,7 @@ const Pokemon = ({ pokemon }) => {
               <p>{pokemon.id}</p>
               <img src={pokemon.sprites.front_default} />
               </div>
+
             
       )
 }
