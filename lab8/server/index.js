@@ -30,7 +30,7 @@ App.put("/people/:person", (req, res) => {
 
 App.get("/people/:person", (req, res) => {
     const person = req.params.person;
-    
+    names.push(person);
     res.json({name: person});
 });
 
