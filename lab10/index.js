@@ -6,11 +6,14 @@ const port = 45030;
 App.use( Express.json() );
 
 App.put("/people/create", (req, res) => {
-    // As this is PUT, the req.body can be used.
+    Database.createOne();
     console.log(req.body);
 });
 App.get("/people/:person", (req, res) => {
-    console.log(req.body)
+    Database.readOne();
+    people = req.params.people;
+    person = req.params.person;
+    
 });
 
 App.listen(port);

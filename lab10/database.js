@@ -4,27 +4,31 @@ const url = "mongodb+srv://KiaraChacon:jvSTx5EKRKWgmudW@cluster0.yuzwq.mongodb.n
 
 class Database {
     async connect() {
-        // Wait for the connect() method to finish.
+        
         this.connection = await MongoClient.connect(url, { useUnifiedTopology: true });
-        // Select a database.
+       
         this.database = this.connection.db("lab10");
-        // Select a collection.
+        
         this.collection = this.database.collection("people");
-        collection.insertOne({
-            "firstName": "Kiara",
-            "lastName": "Chacon",
-            "favoriteColor": "Purple"
+        
+        collection.people.insertOne({
+            firstName: "Kiara",
+            lastName: "Chacon",
+            favoriteColor: "Purple"
     });
-        this.collection.findOne({
-            
-        })
-}
+        collection.findOne({}).toArray((error, document) => {
+        if(error) {
+            throw error;
+        }
+        console.log(document)
+        });
+        }
 
-close() {
+    close() {
     if(this.collection != null) {
       this.collection.close();
     }
-  }
-}
+    }
+    }
 
 export default Database;
