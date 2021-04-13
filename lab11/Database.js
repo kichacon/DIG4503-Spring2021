@@ -34,9 +34,7 @@ class Database {
     }
 
     readMany() {
-        this.collection.findMany({
-            ISBN, title, author, description
-        })
+        this.collection.findMany({books: ["The Great Gatsby", "In the Eyes of"] })
     }
 
     async updateOne(ISBN, title, author, description) {
@@ -51,7 +49,7 @@ class Database {
 
     async deleteOne(ISBN) {
         if(this.collection != null) {
-            const result = await this.collection.deleteOne({"ISBN": ISBN});
+            const result = await this.collection.deleteOne({ISBN: "ISBN"});
             return {"deleted": result.deletedCount};
         } else {
             return{"deleted": 0};

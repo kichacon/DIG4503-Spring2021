@@ -9,35 +9,38 @@ App.use (Express.json());
 const db = new Database();
 db.connect("lab11", "books");
 
-App.put("/books/:ISBN", (req, res) => {
+App.put("/books/:ISBN",  (req, res) => {
     const ISBN = req.params.ISBN;
     const title = req.body.title;
     const author = req.body.author;
     const description = req.body.description;
-
+    
     res.json({
         ISBN: ISBN,
         title: title,
         author: author,
         description: description
     });
+    
 });
 
 App.get("/books/:ISBN", (req, res) => {
     const ISBN = req.params.ISBN;
-
-    if (ISBN == NULL) {
-    res.json({book: "not found"});
-    } else {
-        return{ISBN: ISBN};
-    }
+    res.json({Book: "Not Found"})
+   // if (req.params.ISBN =! null) {
+   // res.json({ISBN: ISBN}); }
+   // else {res.json("Not Found"); }
 });
 
-App.post("/books/search", (req, res) => {
-    const ISBN = req.params.ISBN;
+App.post("/books/search",  (req, res) => {
+    const books = req.params.books;
+
+    
+    const result =  db.readMany(ISBN, title, author, description);
+    res.json(result);
 
 
-})
+});
 
 App.patch("/books/:ISBN", async (req, res) => {
     const ISBN = req.params.ISBN;
@@ -52,10 +55,10 @@ App.patch("/books/:ISBN", async (req, res) => {
     
 }) ;
 
-App.delete("/books/:ISBN", (req, res) => {
+App.delete("/books/:ISBN", async (req, res) => {
     const ISBN = req.params.ISBN;
 
-    const result = db.deleteOne(ISBN);
+    const result = await db.deleteOne(ISBN);
 
     res.json(result);
 });
