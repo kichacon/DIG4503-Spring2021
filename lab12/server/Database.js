@@ -58,16 +58,15 @@ class Database {
 
     }
 
-    async deleteOne(ISBN) {
-        if(this.collection != null) {
-            const result = await this.collection.deleteOne({ISBN: "ISBN"});
-            return {"deleted": result.deletedCount};
-        } else {
-            return{"deleted": 0};
+    async delete(query) {
+        let deletedResult = null;
 
-            
+        if(this.collection != null) {
+            deletedResult = await this.collection.deleteOne(query);
         }
+            return deletedResult;
         }
+        
 
     close(){
         if(this.collection != null) {

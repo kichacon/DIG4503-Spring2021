@@ -1,26 +1,27 @@
 import Express from 'express';
+import CORS from 'cors';
 import Database from "./Database.js";
 
 const App = Express ();
 const port = 45030;
 
+App.use(CORS());
 App.use (Express.json());
 
 const db = new Database();
 db.connect("lab11", "books");
 
-App.put("/books/:ISBN",  (req, res) => {
-    const ISBN = req.params.ISBN;
-    const title = req.body.title;
-    const author = req.body.author;
-    const description = req.body.description;
-    
-    res.json({
-        ISBN: ISBN,
-        title: title,
-        author: author,
-        description: description
+App.put("/books/:ISBN", async (req, res) => {
+  
+    const result = await db.create({
+        ISBN: "Some Value!",
+        title: "Great Gatsby",
+        author: "author",
+        description: "description"
+
     });
+
+    res.json(result);
     
 });
 
@@ -43,24 +44,41 @@ App.post("/books/search",  (req, res) => {
 });
 
 App.patch("/books/:ISBN", async (req, res) => {
-    const ISBN = req.params.ISBN;
+    const result = await db.update({
+        ISBN: "Some Value!",
+        title: "Great Gatsby",
+        author: "author",
+        description: "description"
 
-    const title = req.body.title;
-    const author = req.body.author;
-    const description = req.body.description;
-
-    const result = await db.updateOne(ISBN, title, author, description);
+    },
+       { ISBN: "Some",
+        title: "some",
+        author: "some",
+        description: "some"
+    });
 
     res.json(result);
     
-}) ;
+ }) ;
 
 App.delete("/books/:ISBN", async (req, res) => {
-    const ISBN = req.params.ISBN;
+    const result = await db.delete({
+        ISBN: "Some Value!",
+        title: "Great Gatsby",
+        author: "author",
+        description: "description"
 
-    const result = await db.deleteOne(ISBN);
+    });
 
     res.json(result);
+
 });
 
 App.listen(port);
+
+
+
+
+
+
+
